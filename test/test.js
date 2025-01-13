@@ -1,5 +1,5 @@
 const request = require('supertest');
-const createApp = require('../index'); // Adjust the path based on your folder structure
+const createApp = require('../index'); 
 
 let app;
 
@@ -7,7 +7,7 @@ describe('Room Booking API Tests', () => {
     beforeEach(() => {
         const rooms = Array.from({ length: 10 }, (_, i) => ({ roomNumber: i + 1, isAvailable: true }));
         const bookings = [];
-        app = createApp(rooms, bookings); // Create a new app instance for each test with fresh state
+        app = createApp(rooms, bookings); 
     });
 
     test('should book a room successfully', async () => {
@@ -27,9 +27,8 @@ describe('Room Booking API Tests', () => {
     });
 
     test('should return error if no rooms are available', async () => {
-        // Make all rooms unavailable
         const rooms = Array.from({ length: 10 }, (_, i) => ({ roomNumber: i + 1, isAvailable: false }));
-        app = createApp(rooms, []); // Create a new app instance with all rooms unavailable
+        app = createApp(rooms, []); 
 
         const response = await request(app).post('/book-room').send({
             name: 'John Doe',
@@ -53,7 +52,6 @@ describe('Room Booking API Tests', () => {
             checkOutDate: '2025-01-20',
         };
 
-        // Simulate an existing booking
         await request(app).post('/book-room').send(booking);
 
         const response = await request(app).get('/booking-details').query({ email: 'john@example.com' });
@@ -95,7 +93,6 @@ describe('Room Booking API Tests', () => {
             checkOutDate: '2025-01-20',
         };
 
-        // Simulate an existing booking
         await request(app).post('/book-room').send(booking);
 
         const response = await request(app)
@@ -116,7 +113,6 @@ describe('Room Booking API Tests', () => {
             checkOutDate: '2025-01-20',
         };
 
-        // Simulate an existing booking
         await request(app).post('/book-room').send(booking);
 
         const response = await request(app)
